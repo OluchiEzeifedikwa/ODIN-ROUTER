@@ -6,6 +6,9 @@ const indexRouter = require('./routes/indexRouter');
 const path = require('node:path');
 
 
+const assetsPath = path.join(__dirname, "public");
+app.use(express.static(assetsPath));
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -15,12 +18,23 @@ app.set('view engine', 'ejs');
 const links = [
     { href: "/", text: "Home" },
     { href: "about", text: "About" },
+    { href: "/", text: "Contact"},
+    { href: "terms", text: "Terms"},
   ];
+
+const linkers = [
+  { href: "/", text: "Contact"},
+  { href: "terms", text: "Terms"},
+]
 
 const users = ["Rose", "Cake", "Biff"];
   
   app.get("/", (req, res) => {
-    res.render("index", { links: links, users: users });
+    res.render("index", { links: links, users: users, linkers: linkers });
+  });
+
+  app.get("/about", (req, res) => {
+    res.render("about", { links: links, users: users, linkers: linkers });
   });
   
 
